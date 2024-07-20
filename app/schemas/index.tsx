@@ -20,3 +20,15 @@ export const registerSchema = z.object({
     message: "Username must be at least 3 characters long",
   }),
 });
+
+export const createChatSchema = z.object({
+  name: z.string().min(1, {
+    message: "Chat name is required",
+  })
+});
+
+export const createMessageSchema = z.object({
+  content: z.string().min(1, {
+    message: "Message content is required",
+  })
+});

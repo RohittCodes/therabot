@@ -23,6 +23,9 @@ model User {
   password      String?
   description   String?
 
+  // chat with bot
+  chats          Chat[]
+  messages       Message[]
   Account             Account?
 
   createdAt DateTime @default(now())
@@ -59,4 +62,26 @@ model VerificationToken {
   expires DateTime
 
   @@unique([email, token])
+}
+
+model Chat {
+  id        String   @id @default(cuid())
+  name      String
+  userId    String
+  createdAt DateTime @default(now())
+  messages  Message[]
+
+  user User @relation(fields: [userId], references: [id])
+}
+
+model Message {
+  id        String   @id @default(cuid())
+  chatId    String
+  userId    String
+  content   String
+  isBot     Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  chat Chat @relation(fields: [chatId], references: [id])
+  user User @relation(fields: [userId], references: [id])
 }

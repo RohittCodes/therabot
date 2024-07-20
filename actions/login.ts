@@ -9,7 +9,6 @@ import { generateVerificationToken } from "@/lib/tokens";
 import { AuthError } from "next-auth";
 import * as z from "zod";
 import { getUserByEmail } from "@/data/user";
-import { cp } from "fs";
 
 export const login = async (values: z.infer<typeof loginSchema>, callbackUrl?: string | null) => {
     const validatedFields = loginSchema.safeParse(values);
