@@ -6,7 +6,7 @@ import Link from "next/link";
 export default function Home() {
   return (
     <main>
-      Main Application
+      Public route
       <Link href="/auth/login">
         <Button variant="outline">
           Login
