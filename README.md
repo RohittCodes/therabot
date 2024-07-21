@@ -11,6 +11,7 @@ TheraBot is a mental health chatbot that provides a safe space for users to talk
 - [TheraBot](#therabot)
   - [Table of Contents](#table-of-contents)
   - [Features](#features)
+  - [Demo](#demo)
   - [Tech Stack](#tech-stack)
   - [Installation](#installation)
   - [Setup](#setup)
@@ -24,11 +25,19 @@ TheraBot is a mental health chatbot that provides a safe space for users to talk
 - **Secure Authentication**: TheraBot uses secure authentication to protect user data and ensure privacy.
 - **Real-time Chat**: TheraBot provides real-time chat support to help users feel heard, understood, and supported. It uses pusher to provide real-time chat functionality.
 
+## Demo
+
+[![Therabot](https://img.shields.io/badge/Therabot-131633?style=for-the-badge&link=https://github.com/RohittCodes/therabot/)](https://github.com/RohittCodes/therabot/)
+
+https://github.com/user-attachments/assets/c1c15c55-7f33-4837-bc8c-8fd250781e23
+
+Note: If you're not able to access the demo video, please visit this youtube link: [Therabot Demo](https://youtu.be/spDfdA3DONg)
+
 ## Tech Stack
 - **Frontend**: React.js, Next.js, Tailwind CSS, Shadcn UI
 - **Database**: MySQL
 - **Authentication**: Auth.js
-- **Core packages**: pusher-js, uploadthing, resend, Google's gemini API
+- **Core packages**: pusher-js, resend, Google's gemini API, Prisma, Spotify API
 
 ## Installation
 
