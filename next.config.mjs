@@ -4,7 +4,8 @@ const nextConfig = {
         domains: [
             "scontent.fmaa10-1.fna.fbcdn.net",
             "utfs.io",
-            "avatars.githubusercontent.com"
+            "avatars.githubusercontent.com",
+            "i.scdn.co"
         ]
     }
 };

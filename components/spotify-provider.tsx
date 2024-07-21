@@ -3,12 +3,14 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Button } from "./ui/button";
-import { fetchSpotifyProfile } from "@/actions/spotify";
+import { fetchSpotifyPlaylists, fetchSpotifyProfile } from "@/actions/spotify";
 import Image from "next/image";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 
 export const SpotifyProvider = () => {
   const [token, setToken] = useState("");
   const [profile, setProfile] = useState<any>({});
+  const [playlists, setPlaylists] = useState<any[]>([]);
 
     //   fetch the token from the server
     useEffect(() => {
@@ -18,7 +20,7 @@ export const SpotifyProvider = () => {
                 setToken(data.token.value);
             });
     }, []);
-
+    
     useEffect(() => {
         // fetch the user's profile with server action
         const fetchProfile = async () => {
@@ -32,27 +34,72 @@ export const SpotifyProvider = () => {
         }
     }, [token]);
 
-    console.log("profile", profile);
-
     const profileImage = (profile && profile.images?.[0].url);
+
+    useEffect(() => {
+        // fetch the user's playlists with server action
+        const fetchPlaylists = async () => {
+            const data = await fetchSpotifyPlaylists(token);
+            setPlaylists(data);
+        }
+
+        if (token) {
+            fetchPlaylists();
+        }
+    }, [token]);
 
   return (
     <>
         {(token === "") ? (
-            <div>
+            <div className="flex items-center justify-center h-full">
                 <Link href="/api/spotify/login">
-                    <Button>Log in with Spotify</Button>
+                    <Button>Connect Spotify</Button>
                 </Link>
             </div>
         ) : (
             <div className="flex flex-col items-center">
-                <h1 className="text-2xl font-bold">Spotify Profile</h1>
                 {
                     profile ? (
-                        <div>
-                            <Image src={profileImage} width={200} height={200} alt="Spotify Profile Image" />
-                            <h2>{profile.display_name}</h2>
-                            <p>{profile.email}</p>
+                        <div className="flex flex-col w-full items-start space-y-4">
+                            <div className="flex items-center justify-center">
+                                <Image
+                                    src={profileImage}
+                                    alt="Spotify Profile Image"
+                                    width={46}
+                                    height={46}
+                                    className="rounded-full"
+                                />
+                                <div className="flex flex-col ml-4">
+                                    <span>{profile.display_name}</span>
+                                    <span>{profile.email}</span>
+                                </div>
+                            </div>
+                            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4 w-full">
+                                {
+                                    playlists.map((playlist) => (
+                                        <Card key={playlist.id} className="w-full">
+                                            <CardHeader>
+                                                <CardTitle>{playlist.name}</CardTitle>
+                                            </CardHeader>
+                                            <CardContent className="flex items-center justify-center">
+                                                <CardDescription className="flex flex-col items-center space-y-2">
+                                                    <Image src={playlist.images[0].url} alt={playlist.name} width={240} height={240} />
+                                                    {/* show ellipsis if description is too long */}
+                                                    <span className="h-6 overflow-hidden overflow-ellipsis">
+                                                        {playlist.description}
+                                                    </span>
+                                                </CardDescription>
+                                            </CardContent>
+                                            <CardFooter className="flex items-center justify-between">
+                                                <span>{playlist.tracks.total} tracks</span>
+                                                <Link href={playlist.external_urls.spotify}>
+                                                    <Button variant="ghost">Open</Button>
+                                                </Link>
+                                            </CardFooter>
+                                        </Card>
+                                    ))
+                                }
+                            </div>
                         </div>
                     ) : (
                         <p>Loading...</p>

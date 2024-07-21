@@ -11,7 +11,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { EllipsisVertical, PenSquare, Trash2Icon } from "lucide-react";
+import { Trash2Icon } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 
@@ -32,13 +32,15 @@ const ChatItem = ({ chat }: ChatItemProps) => {
       return;
     }
 
-    console.log(res.success);
+    // console.log(res.success);
 
     // refresh the page
     router.refresh();
+    window.location.reload();
+    router.replace(`${process.env.NEXT_PUBLIC_URL}/app/chat`);
   };
 
-  console.log(pathname);
+  // console.log(pathname);
 
   const isActive = pathname === `/app/chat/${chat.id}`;
 
@@ -46,7 +48,7 @@ const ChatItem = ({ chat }: ChatItemProps) => {
     <div className="flex items-center justify-between w-full">
       <Link href={`/app/chat/${chat.id}`} className="w-full mr-2">
         <div
-          className={`flex items-center w-full cursor-pointer justify-between px-4 py-2 rounded-md ${
+          className={`flex items-center w-full cursor-pointer justify-between px-4 py-2 rounded-md hover:bg-border ${
             isActive ? "bg-border " : ""
           }`}
         >
@@ -56,9 +58,9 @@ const ChatItem = ({ chat }: ChatItemProps) => {
 
       <Dialog>
         <DialogTrigger>
-          <Button variant="outline" size="icon">
-            <Trash2Icon size={24} />
-          </Button>
+          {/* <Button variant="outline" size="icon"> */}
+            <Trash2Icon size={24} className="cursor-pointer hover:text-red-500" />
+          {/* </Button> */}
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>

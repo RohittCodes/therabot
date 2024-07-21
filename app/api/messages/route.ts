@@ -96,7 +96,7 @@ export async function POST (req: Request) {
     }
 
     catch(e) {
-        console.log(e);
+        // console.log(e);
         return new NextResponse("An error occurred!", { status: 500 });
     }
 }

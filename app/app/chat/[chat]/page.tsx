@@ -1,6 +1,7 @@
 import { getChatsByChatId } from "@/actions/chat";
 import ChatInput from "../_components/chat-input";
 import ChatWindow from "../_components/chat-window";
+import { redirect } from "next/navigation";
 
 const ChatBotPage = async ({ params } : { params: { chat: string } }) => {
     const chatId = params.chat;
@@ -16,16 +17,20 @@ const ChatBotPage = async ({ params } : { params: { chat: string } }) => {
     }
     
     if(!messages){
+        redirect("/app/chat");
+    }
+
+    if(!messages.chats) {
         return (
             <div className="w-full h-full flex items-center justify-center">
-                <span>Loading...</span>
+                <span>No messages found!</span>
             </div>
         );
     }
 
     return (
         <div className="w-full h-full flex flex-col items-center justify-between">
-            <ChatWindow chatId={chatId} messages={messages?.chats} />
+            <ChatWindow chatId={chatId} messages={messages.chats} />
             <ChatInput chatId={chatId} />
         </div>
     )

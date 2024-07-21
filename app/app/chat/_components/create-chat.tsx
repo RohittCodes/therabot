@@ -38,13 +38,14 @@ const CreateChatForm = () => {
             setError("");
             setSuccess("");
         
-            console.log(values);
+            // console.log(values); 
             createChat(values).then((response) => {
                 setError(response?.error);
                 setSuccess(response?.success);
                 if(response?.success) {
                     router.push(`/app/chat/${response?.chat?.id}`);
                     router.refresh();
+                    window.location.reload();
                 }
             });
         });

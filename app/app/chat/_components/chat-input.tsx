@@ -38,9 +38,9 @@ const ChatInput = ({ chatId }: ChatInputProps) => {
         values,
         chatId,
       };
-      setIsLoading(true);
-      axios.post(`/api/messages`, data).then((response) => {
         form.reset();
+        setIsLoading(true);
+      axios.post(`/api/messages`, data).then((response) => {
         if (response.data.error) {
           console.error(response.data.error);
         }

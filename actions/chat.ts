@@ -166,7 +166,13 @@ export const deleteChat = async (id: string) => {
     const chat = await db.chat.delete({
         where: {
             id,
-            userId
+            userId,
+            messages: {
+                every: {}
+            }
+        },
+        include: {
+            messages: true
         }
     });
 

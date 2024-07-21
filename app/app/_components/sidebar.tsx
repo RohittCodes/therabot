@@ -6,7 +6,7 @@ import Link from "next/link";
 import ProfileToggle from "./profile-toggle";
 import { HomeIcon, LogOutIcon, MessageCircleMoreIcon, SquareLibrary } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { signOut } from "@/auth";
+import { signOut } from "next-auth/react";
 import { ModeToggle } from "@/components/globals/mode-toggle";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import { usePathname } from "next/navigation";

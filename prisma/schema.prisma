@@ -82,6 +82,6 @@ model Message {
   isBot     Boolean  @default(false)
   createdAt DateTime @default(now())
 
-  chat Chat @relation(fields: [chatId], references: [id])
+  chat Chat @relation(fields: [chatId], references: [id], onDelete: Cascade)
   user User @relation(fields: [userId], references: [id])
 }

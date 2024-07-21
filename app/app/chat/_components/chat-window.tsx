@@ -47,11 +47,7 @@ const ChatWindow = ({ chatId, messages }: ChatWindowProps) => {
     return <div>Loading...</div>;
   }
 
-  const formatTimestamp = (timestamp: string) => {
-    return format(new Date(timestamp), "h:mm a");
-  };
-
-  console.log(initialMessages);
+  // console.log(initialMessages);
   return (
     <div className="w-full h-screen flex flex-col overflow-y-auto">
       <div className="w-full flex flex-col items-center justify-between">

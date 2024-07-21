@@ -26,7 +26,7 @@ export const GET = async (req: any, res: any) => {
     };
 
     try {
-        console.log("authOptions", authOptions);
+        // console.log("authOptions", authOptions);
         const response = await axios.post(authOptions.url, authOptions.data, { headers: authOptions.headers });
         access_token = response.data.access_token;
         

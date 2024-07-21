@@ -1,12 +1,11 @@
 "use client";
 
 import { SpotifyProvider } from "@/components/spotify-provider";
-import { useState } from "react";
 
 const ExplorePage = () => {
 
     return (
-        <div>
+        <div className="flex w-full overflow-y-auto p-2">
             <SpotifyProvider />
         </div>
      );
