@@ -145,3 +145,33 @@ export const getChatsByChatId = async (chatId: string) => {
         chats
     };
 }
+
+export const deleteChat = async (id: string) => {
+    const session = await auth();
+
+    if(!session) {
+        return {
+            error: "You must be logged in to delete a chat!"
+        };
+    }
+
+    if(!session?.user?.id) {
+        return {
+            error: "Invalid user session!"
+        };
+    }
+
+    const userId = session?.user?.id;
+
+    const chat = await db.chat.delete({
+        where: {
+            id,
+            userId
+        }
+    });
+
+    return {
+        success: "Chat deleted successfully!",
+        chat
+    };
+}

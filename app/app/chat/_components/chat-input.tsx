@@ -40,10 +40,10 @@ const ChatInput = ({ chatId }: ChatInputProps) => {
       };
       setIsLoading(true);
       axios.post(`/api/messages`, data).then((response) => {
+        form.reset();
         if (response.data.error) {
           console.error(response.data.error);
         }
-        form.reset();
         setIsLoading(false);
       });
     } catch (error) {

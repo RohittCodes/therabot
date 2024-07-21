@@ -1,7 +1,13 @@
+"use client";
+
+import { SpotifyProvider } from "@/components/spotify-provider";
+import { useState } from "react";
+
 const ExplorePage = () => {
+
     return (
         <div>
-            Explore page
+            <SpotifyProvider />
         </div>
      );
 }

@@ -8,6 +8,7 @@ import { NextResponse } from "next/server";
 import { getUserById, getUserByUsername } from "@/data/user";
 import { pusherServer } from "@/lib/pusher";
 import { toPusherKey } from "@/lib/utils";
+import { thera } from "@/actions/thera";
 
 export async function POST (req: Request) {
     try {
@@ -53,9 +54,43 @@ export async function POST (req: Request) {
 
         await pusherServer.trigger(toPusherKey(chatId), "therabot", chatMessage);
 
-        // get response from mindsdb
+        const previousMessages = await db.message.findMany({
+            where: {
+                chatId
+            }
+        });
+
+        // send the message with roles as user and bot to the model
+        let text = "";
+
+        // get previous 20 messages
+        for(const message of previousMessages.slice(-20)) {
+            const user = await getUserById(message.userId);
+            if(message.isBot) {
+                text += `Therabot: ${message.content}\n`;
+            } else {
+                text += `${user?.username}: ${message.content}\n`;
+            }
+        }
+
+        // get response from gemini ai
+        const response = await thera(text);
+
+        if(!response) {
+            return new NextResponse("An error occurred!", { status: 500 });
+        }
 
         // send response to pusher
+        const botMessage = await db.message.create({
+            data: {
+                content: response as any,
+                chatId,
+                userId: user.id,
+                isBot: true
+            }
+        });
+
+        await pusherServer.trigger(toPusherKey(chatId), "therabot", botMessage);
 
         return new NextResponse("Message sent successfully!", { status: 200 });
     }

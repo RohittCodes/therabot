@@ -5,3 +5,12 @@
 ![GitHub repo size](https://img.shields.io/github/repo-size/RohittCodes/therabot?style=for-the-badge) ![GitHub](https://img.shields.io/github/license/RohittCodes/therabot?style=for-the-badge) ![GitHub last commit](https://img.shields.io/github/last-commit/RohittCodes/therabot?style=for-the-badge)
 
 TheraBot is a mental health chatbot that provides a safe space for users to talk about their mental health and receive support. It is designed to help users feel heard, understood, and supported. TheraBot uses MindsDB's rich collection of LLM models to provide personalized responses to users based on their input. It also provides users with resources and information about mental health.
+
+```
+CREATE MODEL google_gemini_model
+PREDICT reply
+USING
+      engine = 'google_gemini_engine',
+      model = 'gemini-pro',
+      prompt_template = 'Act like TheraBot, An ai powered assistant for emotional and mental health, and reply to user for the input provide a response in markdown only: {{input}}.';
+```

@@ -42,6 +42,11 @@ const ChatWindow = ({ chatId, messages }: ChatWindowProps) => {
     };
   }, [chatId]);
 
+  
+  if (!initialMessages) {
+    return <div>Loading...</div>;
+  }
+
   const formatTimestamp = (timestamp: string) => {
     return format(new Date(timestamp), "h:mm a");
   };
